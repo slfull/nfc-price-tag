@@ -61,7 +61,3 @@ app.get('/product/:id', (req, res) => {
         </html>
     `);
 });
-
-// 啟動伺服器
-const PORT = 3000;
-app.listen(PORT, () => console.log(`伺服器運行於 http://localhost:${PORT}`));
