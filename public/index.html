@@ -1,13 +1,44 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>商品價格查詢</title>
+    <title>NFC 商品資訊</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", async () => {
+            // 解析 URL 獲取商品 ID
+            const path = window.location.pathname;
+            const productId = path.split("/").pop();  // 取得最後一段（商品 ID）
+
+            if (!productId) {
+                document.getElementById("product-info").innerHTML = "<p>請掃描 NFC 以獲取商品資訊</p>";
+                return;
+            }
+
+            try {
+                // 發送 AJAX 請求到 API
+                const response = await fetch(`/api/products?id=${productId}`);
+                const product = await response.json();
+
+                if (response.ok) {
+                    document.getElementById("product-info").innerHTML = `
+                        <h2>${product.name}</h2>
+                        <p>價格：${product.price} 元</p>
+                        <p>備註：${product.note}</p>
+                    `;
+                } else {
+                    document.getElementById("product-info").innerHTML = "<p>找不到該商品</p>";
+                }
+            } catch (error) {
+                document.getElementById("product-info").innerHTML = "<p>加載失敗</p>";
+            }
+        });
+    </script>
 </head>
 <body>
-    <h2>商品價格查詢</h2>
-    <p id="product-id">載入中...</p>
-    <p id="price">請稍候...</p>
+    <h1>掃描 NFC 取得商品資訊</h1>
+    <div id="product-info">
+        <p>載入中...</p>
+    </div>
 </body>
 </html>
