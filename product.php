@@ -1,10 +1,6 @@
 <?php
 include("connection.php");
 
-if ($con->connect_error) {
-    die("連接失敗：" . $con->connect_error);
-}
-
 if (!isset($_GET['id'])) {
     die("請提供商品 ID");
 }

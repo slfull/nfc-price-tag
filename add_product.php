@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "新增商品失敗：" . $con->error;
     }
 
-    $conn->close();
+    $con->close();
 }
 ?>
 

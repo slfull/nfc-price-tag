@@ -1,8 +1,5 @@
 <?php
 include("connection.php");
-if ($con->connect_error) {
-    die("連接失敗：" . $con->connect_error);
-}
 
 $sql = "SELECT * FROM products";
 $result = $con->query($sql);
